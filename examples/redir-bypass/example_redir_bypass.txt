@@ -1,0 +1,66 @@
+bash-5.2# ./test_redir_bypass.sh
+[    4.943828] IPv6: ADDRCONF(NETDEV_CHANGE): veth0: link becomes ready
+sockperf: Running as daemon
+sockperf: == version #3.8-no.git ==
+sockperf: [SERVER] listen on:
+[ 0] IP = 10.0.0.1        PORT = 11111 # TCP
+sockperf: Warmup stage (sending a few dummy messages)...
+sockperf: [tid 318] using recvfrom() to block on socket(s)
+
+*** netns-to-netns TCP latency test ***
+
+sockperf: == version #3.8-no.git ==
+sockperf[CLIENT] send on:sockperf: using recvfrom() to block on socket(s)
+
+[ 0] IP = 10.0.0.1        PORT = 11111 # TCP
+sockperf: Warmup stage (sending a few dummy messages)...
+[    5.933807] IPv6: ADDRCONF(NETDEV_CHANGE): veth0: link becomes ready
+sockperf: Starting test...
+sockperf: Test end (interrupted by timer)
+sockperf: Test ended
+sockperf: [Total Run] RunTime=30.000 sec; Warm up time=400 msec; SentMessages=2623437; ReceivedMessages=2623436
+sockperf: ========= Printing statistics for Server No: 0
+sockperf: [Valid Duration] RunTime=29.550 sec; SentMessages=2584345; ReceivedMessages=2584345
+sockperf: ====> avg-latency=5.693 (std-dev=6.070, mean-ad=0.342, median-ad=0.293, siqr=0.228, cv=1.066, std-error=0.004, 99.0% ci=[5.683, 5.703])
+sockperf: # dropped messages = 0; # duplicated messages = 0; # out-of-order messages = 0
+sockperf: Summary: Latency is 5.693 usec
+sockperf: Total 2584345 observations; each percentile contains 25843.45 observations
+sockperf: ---> <MAX> observation = 9006.240
+sockperf: ---> percentile 99.999 =  209.325
+sockperf: ---> percentile 99.990 =   39.182
+sockperf: ---> percentile 99.900 =   12.415
+sockperf: ---> percentile 99.000 =    7.923
+sockperf: ---> percentile 90.000 =    5.959
+sockperf: ---> percentile 75.000 =    5.850
+sockperf: ---> percentile 50.000 =    5.524
+sockperf: ---> percentile 25.000 =    5.392
+sockperf: ---> <MIN> observation =    2.162
+
+*** netns-to-netns TCP latency test WITH sockmap bypass ***
+
+sockperf: == version #3.8-no.git ==
+sockperf[CLIENT] send on:sockperf: using recvfrom() to block on socket(s)
+
+[ 0] IP = 10.0.0.1        PORT = 11111 # TCP
+sockperf: Warmup stage (sending a few dummy messages)...
+sockperf: Starting test...
+sockperf: Test end (interrupted by timer)
+sockperf: Test ended
+sockperf: [Total Run] RunTime=30.000 sec; Warm up time=400 msec; SentMessages=3108746; ReceivedMessages=3108745
+sockperf: ========= Printing statistics for Server No: 0
+sockperf: [Valid Duration] RunTime=29.550 sec; SentMessages=3062402; ReceivedMessages=3062402
+sockperf: ====> avg-latency=4.806 (std-dev=1.638, mean-ad=0.207, median-ad=0.176, siqr=0.135, cv=0.341, std-error=0.001, 99.0% ci=[4.804, 4.808])
+sockperf: # dropped messages = 0; # duplicated messages = 0; # out-of-order messages = 0
+sockperf: Summary: Latency is 4.806 usec
+sockperf: Total 3062402 observations; each percentile contains 30624.02 observations
+sockperf: ---> <MAX> observation = 1551.894
+sockperf: ---> percentile 99.999 =  237.629
+sockperf: ---> percentile 99.990 =   25.323
+sockperf: ---> percentile 99.900 =    8.638
+sockperf: ---> percentile 99.000 =    6.389
+sockperf: ---> percentile 90.000 =    4.947
+sockperf: ---> percentile 75.000 =    4.890
+sockperf: ---> percentile 50.000 =    4.804
+sockperf: ---> percentile 25.000 =    4.620
+sockperf: ---> <MIN> observation =    1.310
+bash-5.2#
