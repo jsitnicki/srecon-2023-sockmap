@@ -13,3 +13,6 @@ all: redir_bypass.bpf.o
 
 clean:
 	rm -f *.bpf.o
+
+vm:
+	virtme-run --installed-kernel --pwd --memory 2G --cpus 2

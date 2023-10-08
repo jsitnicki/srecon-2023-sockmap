@@ -62,7 +62,8 @@ bpftool cgroup attach \
         pinned /sys/fs/bpf/sockops_prog
 
 ip netns exec B \
-   sockperf ping-pong -i 10.0.0.1 --tcp --time 30
+   sockperf ping-pong -i 10.0.0.1 --tcp --time 30 \
+   --sender-affinity 0 --receiver-affinity 1
 
 # Teardown
 
