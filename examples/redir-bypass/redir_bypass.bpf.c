@@ -22,6 +22,14 @@ int sk_msg_prog(struct sk_msg_md *msg)
 	return bpf_msg_redirect_hash(msg, &sock_map, &lport, BPF_F_INGRESS);
 }
 
+SEC("sk_msg")
+int sk_msg_prog_once(struct sk_msg_md *msg)
+{
+	__u32 lport = msg->local_port;
+
+	return bpf_msg_redirect_hash(msg, &sock_map, &lport, BPF_F_INGRESS | BPF_F_PERMANENT);
+}
+
 SEC("sockops")
 int sockops_prog(struct bpf_sock_ops *ctx)
 {

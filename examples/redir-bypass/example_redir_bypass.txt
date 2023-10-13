@@ -1,66 +1,149 @@
 bash-5.2# ./test_redir_bypass.sh
-[    4.479608] IPv6: ADDRCONF(NETDEV_CHANGE): veth0: link becomes ready
+kernel.bpf_stats_enabled = 1
+9: veth0@if9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether 56:d3:9a:49:88:e1 brd ff:ff:ff:ff:ff:ff link-netns B
+9: veth0@if9: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state DOWN mode DEFAULT group default qlen 1000
+    link/ether 32:77:92:63:d8:45 brd ff:ff:ff:ff:ff:ff link-netns A
 sockperf: Running as daemon
 sockperf: == version #3.8-no.git ==
 sockperf: [SERVER] listen on:
 [ 0] IP = 10.0.0.1        PORT = 11111 # TCP
 sockperf: Warmup stage (sending a few dummy messages)...
-sockperf: [tid 324] using recvfrom() to block on socket(s)
+sockperf: [tid 487] using recvfrom() to block on socket(s)
 
 *** netns-to-netns TCP latency test ***
 
 sockperf: == version #3.8-no.git ==
-sockperf[CLIENT] send on:sockperf: using recvfrom() to block on socket(s)
-
+sockperf[CLIENT] send on:
 [ 0] IP = 10.0.0.1        PORT = 11111 # TCP
 sockperf: Warmup stage (sending a few dummy messages)...
-[    5.487563] IPv6: ADDRCONF(NETDEV_CHANGE): veth0: link becomes ready
 sockperf: Starting test...
 sockperf: Test end (interrupted by timer)
 sockperf: Test ended
-sockperf: [Total Run] RunTime=30.000 sec; Warm up time=400 msec; SentMessages=2599753; ReceivedMessages=2599752
-sockperf: ========= Printing statistics for Server No: 0
-sockperf: [Valid Duration] RunTime=29.550 sec; SentMessages=2559547; ReceivedMessages=2559547
-sockperf: ====> avg-latency=5.748 (std-dev=2.010, mean-ad=0.322, median-ad=0.220, siqr=0.239, cv=0.350, std-error=0.001, 99.0% ci=[5.745, 5.751])
-sockperf: # dropped messages = 0; # duplicated messages = 0; # out-of-order messages = 0
-sockperf: Summary: Latency is 5.748 usec
-sockperf: Total 2559547 observations; each percentile contains 25595.47 observations
-sockperf: ---> <MAX> observation =  451.989
-sockperf: ---> percentile 99.999 =  250.633
-sockperf: ---> percentile 99.990 =   83.027
-sockperf: ---> percentile 99.900 =   10.391
-sockperf: ---> percentile 99.000 =    7.509
-sockperf: ---> percentile 90.000 =    6.027
-sockperf: ---> percentile 75.000 =    5.950
-sockperf: ---> percentile 50.000 =    5.567
-sockperf: ---> percentile 25.000 =    5.469
-sockperf: ---> <MIN> observation =    2.153
+sockperf: Total of 2727516 messages sent in 30.000 sec
+
+sockperf: Summary: Message Rate is 90916 [msg/sec]
+sockperf: Summary: BandWidth is 127.629 MBps (1021.029 Mbps)
 
 *** netns-to-netns TCP latency test WITH sockmap bypass ***
 
 sockperf: == version #3.8-no.git ==
-sockperf[CLIENT] send on:sockperf: using recvfrom() to block on socket(s)
-
+sockperf[CLIENT] send on:
 [ 0] IP = 10.0.0.1        PORT = 11111 # TCP
 sockperf: Warmup stage (sending a few dummy messages)...
 sockperf: Starting test...
 sockperf: Test end (interrupted by timer)
 sockperf: Test ended
-sockperf: [Total Run] RunTime=30.000 sec; Warm up time=400 msec; SentMessages=3189584; ReceivedMessages=3189583
-sockperf: ========= Printing statistics for Server No: 0
-sockperf: [Valid Duration] RunTime=29.550 sec; SentMessages=3142280; ReceivedMessages=3142280
-sockperf: ====> avg-latency=4.686 (std-dev=2.862, mean-ad=0.250, median-ad=0.216, siqr=0.173, cv=0.611, std-error=0.002, 99.0% ci=[4.682, 4.690])
-sockperf: # dropped messages = 0; # duplicated messages = 0; # out-of-order messages = 0
-sockperf: Summary: Latency is 4.686 usec
-sockperf: Total 3142280 observations; each percentile contains 31422.80 observations
-sockperf: ---> <MAX> observation = 4067.663
-sockperf: ---> percentile 99.999 =  215.865
-sockperf: ---> percentile 99.990 =   38.561
-sockperf: ---> percentile 99.900 =    8.120
-sockperf: ---> percentile 99.000 =    6.201
-sockperf: ---> percentile 90.000 =    4.910
-sockperf: ---> percentile 75.000 =    4.844
-sockperf: ---> percentile 50.000 =    4.583
-sockperf: ---> percentile 25.000 =    4.497
-sockperf: ---> <MIN> observation =    1.318
+sockperf: Total of 3851803 messages sent in 30.000 sec
+
+sockperf: Summary: Message Rate is 128392 [msg/sec]
+sockperf: Summary: BandWidth is 180.238 MBps (1441.902 Mbps)
+
+*** netns-to-netns TCP latency test WITH sockmap bypass + F_PERMANENT ***
+
+sockperf: == version #3.8-no.git ==
+sockperf[CLIENT] send on:
+[ 0] IP = 10.0.0.1        PORT = 11111 # TCP
+sockperf: Warmup stage (sending a few dummy messages)...
+sockperf: Starting test...
+sockperf: Test end (interrupted by timer)
+sockperf: Test ended
+sockperf: Total of 4250761 messages sent in 30.000 sec
+
+sockperf: Summary: Message Rate is 141691 [msg/sec]
+sockperf: Summary: BandWidth is 198.907 MBps (1591.256 Mbps)
+2: tracing  name dump_bpf_map  tag 4cb5667b31ea424a  gpl
+        loaded_at 2023-10-13T13:44:05+0200  uid 0
+        xlated 280B  jited 166B  memlock 4096B  map_ids 2
+        btf_id 2
+3: tracing  name dump_bpf_prog  tag 112ca440686aa987  gpl
+        loaded_at 2023-10-13T13:44:05+0200  uid 0
+        xlated 520B  jited 647B  memlock 4096B  map_ids 2
+        btf_id 2
+157: sk_msg  name sk_msg_prog  tag 7c26e0d6e8e92a36  gpl run_time_ns 230932921 run_cnt 3851803
+        loaded_at 2023-10-13T14:25:33+0200  uid 0
+        xlated 80B  jited 62B  memlock 4096B  map_ids 79,81
+        btf_id 155
+159: sk_msg  name sk_msg_prog_once  tag e460e6fffdc8ff8a  gpl run_time_ns 1398 run_cnt 1
+        loaded_at 2023-10-13T14:25:33+0200  uid 0
+        xlated 80B  jited 62B  memlock 4096B  map_ids 79,81
+        btf_id 155
+160: sock_ops  name sockops_prog  tag f39a78525dee6477  gpl run_time_ns 28029 run_cnt 18
+        loaded_at 2023-10-13T14:25:33+0200  uid 0
+        xlated 224B  jited 134B  memlock 4096B  map_ids 81,79
+        btf_id 155
+bash-5.2# ./test_redir_bypass.sh
+kernel.bpf_stats_enabled = 1
+9: veth0@if9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether 8e:7c:6f:f1:81:6b brd ff:ff:ff:ff:ff:ff link-netns B
+9: veth0@if9: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state DOWN mode DEFAULT group default qlen 1000
+    link/ether 6a:bb:72:68:64:c9 brd ff:ff:ff:ff:ff:ff link-netns A
+sockperf: Running as daemon
+sockperf: == version #3.8-no.git ==
+sockperf: [SERVER] listen on:
+[ 0] IP = 10.0.0.1        PORT = 11111 # TCP
+sockperf: Warmup stage (sending a few dummy messages)...
+sockperf: [tid 524] using recvfrom() to block on socket(s)
+
+*** netns-to-netns TCP latency test ***
+
+sockperf: == version #3.8-no.git ==
+sockperf[CLIENT] send on:
+[ 0] IP = 10.0.0.1        PORT = 11111 # TCP
+sockperf: Warmup stage (sending a few dummy messages)...
+sockperf: Starting test...
+sockperf: Test end (interrupted by timer)
+sockperf: Test ended
+sockperf: Total of 2629171 messages sent in 30.000 sec
+
+sockperf: Summary: Message Rate is 87638 [msg/sec]
+sockperf: Summary: BandWidth is 123.027 MBps (984.216 Mbps)
+
+*** netns-to-netns TCP latency test WITH sockmap bypass ***
+
+sockperf: == version #3.8-no.git ==
+sockperf[CLIENT] send on:
+[ 0] IP = 10.0.0.1        PORT = 11111 # TCP
+sockperf: Warmup stage (sending a few dummy messages)...
+sockperf: Starting test...
+sockperf: Test end (interrupted by timer)
+sockperf: Test ended
+sockperf: Total of 4071588 messages sent in 30.000 sec
+
+sockperf: Summary: Message Rate is 135718 [msg/sec]
+sockperf: Summary: BandWidth is 190.522 MBps (1524.177 Mbps)
+
+*** netns-to-netns TCP latency test WITH sockmap bypass + F_PERMANENT ***
+
+sockperf: == version #3.8-no.git ==
+sockperf[CLIENT] send on:
+[ 0] IP = 10.0.0.1        PORT = 11111 # TCP
+sockperf: Warmup stage (sending a few dummy messages)...
+sockperf: Starting test...
+sockperf: Test end (interrupted by timer)
+sockperf: Test ended
+sockperf: Total of 4461025 messages sent in 30.000 sec
+
+sockperf: Summary: Message Rate is 148700 [msg/sec]
+sockperf: Summary: BandWidth is 208.746 MBps (1669.971 Mbps)
+2: tracing  name dump_bpf_map  tag 4cb5667b31ea424a  gpl
+        loaded_at 2023-10-13T13:44:05+0200  uid 0
+        xlated 280B  jited 166B  memlock 4096B  map_ids 2
+        btf_id 2
+3: tracing  name dump_bpf_prog  tag 112ca440686aa987  gpl
+        loaded_at 2023-10-13T13:44:05+0200  uid 0
+        xlated 520B  jited 647B  memlock 4096B  map_ids 2
+        btf_id 2
+175: sk_msg  name sk_msg_prog  tag 7c26e0d6e8e92a36  gpl run_time_ns 245761059 run_cnt 4071588
+        loaded_at 2023-10-13T14:27:28+0200  uid 0
+        xlated 80B  jited 62B  memlock 4096B  map_ids 88,90
+        btf_id 173
+177: sk_msg  name sk_msg_prog_once  tag e460e6fffdc8ff8a  gpl run_time_ns 1441 run_cnt 1
+        loaded_at 2023-10-13T14:27:28+0200  uid 0
+        xlated 80B  jited 62B  memlock 4096B  map_ids 88,90
+        btf_id 173
+178: sock_ops  name sockops_prog  tag f39a78525dee6477  gpl run_time_ns 46879 run_cnt 18
+        loaded_at 2023-10-13T14:27:28+0200  uid 0
+        xlated 224B  jited 134B  memlock 4096B  map_ids 90,88
+        btf_id 173
 bash-5.2#
